@@ -211,7 +211,7 @@ def main(input_file, output_file):
 
     geo, pitch = load_multitile_geometry('layouts_fsd/multi_tile_layout-3.0.40_fsd.yaml')
 
-    fig, ax = plt.subplots(2, 2, figsize=(15, 25))
+    fig, ax = plt.subplots(4, 2, figsize=(15, 25))
     fig.suptitle(timestamp)
 
     max_mean = 150
@@ -235,8 +235,16 @@ def main(input_file, output_file):
     fig.colorbar(cm.ScalarMappable(norm=Normalize(vmin=0, vmax=max_std),
                                    cmap='viridis'), cax=cax1,label='ADC Counts')
 
+    max_rate = 200
+    anode_xy(ax[2], geo, pitch, d, 'rate', max_rate)
+    ax[0, 2].set_title('TPC 1 - Rate')
+    ax[0, 3].set_title('TPC 2 - Rate')
     
-
+    divider = make_axes_locatable(ax[0, 3])
+    cax0 = divider.append_axes("right", size="5%", pad=0.05)
+    fig.colorbar(cm.ScalarMappable(norm=Normalize(vmin=0, vmax=max_rate),
+                                   cmap='viridis'), cax=cax0,label='ADC Counts')
+    
     plt.tight_layout()
     
     print('Saving to: ', output_file)
