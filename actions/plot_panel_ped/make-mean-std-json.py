@@ -48,6 +48,7 @@ def main(input_file=_default_input_file, \
         datawords.append(d[key]['sum']/d[key]['n'])
         d[key]['mean']=d[key]['sum']/d[key]['n']
         d[key]['std']=np.sqrt(-1*(d[key]['mean'])**2+d[key]['sum2']/d[key]['n'] )
+        d[key]['rate']=d[key]['n']
         stds.append(d[key]['std'])
 
     output={}
